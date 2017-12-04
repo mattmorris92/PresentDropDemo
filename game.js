@@ -92,6 +92,8 @@ function updateGameArea() {
       presentYPos = -75
       presentXPos = getRandomXPos(4);
       gameArea.context.drawImage(present,presentXPos,presentYPos)
+      // Increase the difficulty
+      gravity += 2;
     }
   }
 
