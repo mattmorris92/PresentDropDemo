@@ -7,7 +7,7 @@ var score = 0;
 
 var elfPosition = 0; // The starting location for the elf
 var presentPosition = 1; // The starting position for the present
-var presentXPos = 0; // The starting xposition for the present
+var presentXPos = getRandomXPos(4); // The starting xposition for the present
 var presentYPos = -75; // The starting ypos for the present
 
 // Load in the elf image
@@ -37,6 +37,10 @@ document.onkeydown = function(e) {
             if (elfPosition != 225) {
               elfPosition += 75;
             }
+            break;
+        case 82:
+            // They pressed 'r', replay the game by refreshing the page
+            location.reload();
             break;
     }
 };
@@ -93,7 +97,9 @@ function updateGameArea() {
       presentXPos = getRandomXPos(4);
       gameArea.context.drawImage(present,presentXPos,presentYPos)
       // Increase the difficulty
-      gravity += 2;
+      if (gravity < 30) {
+        gravity += 2;
+      }
     }
   }
 
