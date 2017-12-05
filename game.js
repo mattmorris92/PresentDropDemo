@@ -76,6 +76,9 @@ function updateGameArea() {
   // Clear the canvas
   gameArea.clear();
 
+  // Add the score
+  updateScore();
+
   // Update the present's position
   presentYPos += gravity;
   gameArea.context.drawImage(present,presentXPos,presentYPos)
@@ -134,7 +137,10 @@ function getRandomXPos(max) {
 }
 
 function updateScore() {
-  document.getElementById('score').innerHTML = "Score: " + score;
+  gameArea.context.font="30px Comic Sans MS";
+  gameArea.context.fillStyle = "white";
+  gameArea.context.textAlign = "center";
+  gameArea.context.fillText(score, 150, 45);
 }
 
 function gameOver() {
