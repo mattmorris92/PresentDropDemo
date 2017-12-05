@@ -7,7 +7,7 @@ var score = 0;
 
 var elfPosition = 0; // The starting location for the elf
 var presentPosition = 1; // The starting position for the present
-var presentXPos = getRandomXPos(4); // The starting xposition for the present
+var presentXPos = getRandomXPos(5); // The starting xposition for the present
 var presentYPos = -75; // The starting ypos for the present
 
 // Load in the elf image
@@ -97,10 +97,10 @@ function updateGameArea() {
       updateScore();
       // Add a new present to catch
       presentYPos = -75
-      presentXPos = getRandomXPos(4);
+      presentXPos = getRandomXPos(5);
       gameArea.context.drawImage(present,presentXPos,presentYPos)
       // Increase the difficulty
-      if (gravity < 30) {
+      if (gravity < 20) {
         gravity += 2;
       }
     }
