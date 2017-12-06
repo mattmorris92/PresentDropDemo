@@ -2,8 +2,9 @@
 var presentIsReady = false;
 var elfIsReady = false;
 var gameIsReady = false;
-var gravity = 10; // pixel per 20 milliseconds
-var gravityIncreaseBy = 1.0; // pixel per 20 milliseconds
+var gravity = 10;
+var gravityIncreaseBy = 1.0;
+var maxGravity = 20;
 var score = 0;
 
 var elfPosition = 0; // The starting location for the elf
@@ -13,7 +14,7 @@ var presentYPos = -75; // The starting ypos for the present
 
 // Load in the elf image
 var elf = new Image;
-elf.src = "assets/elf2_75x75.png";
+elf.src = "assets/meow.png";
 elf.onload = function() {
   elfIsReady = true;
   readyGame();
@@ -21,7 +22,7 @@ elf.onload = function() {
 
 // Load in the present image
 var present = new Image;
-present.src = "assets/present_75x75.png";
+present.src = "assets/fish.png";
 present.onload = function() {
   presentIsReady = true;
   readyGame();
@@ -31,7 +32,7 @@ present.onload = function() {
 function readyGame() {
   if (presentIsReady && elfIsReady) {
     gameIsReady = true;
-    startGame();
+    gameArea.start();
   }
 }
 
@@ -69,16 +70,15 @@ document.onkeydown = function(e) {
     }
 };
 
-function startGame() {
-    gameArea.start();
-}
-
 function updateGameArea() {
   // Clear the canvas
   gameArea.clear();
 
   // Add the score
   updateScore();
+
+  // Update the elf's position
+  gameArea.context.drawImage(elf,elfPosition,375); // Add the elf
 
   // Update the present's position
   presentYPos += gravity;
@@ -95,19 +95,17 @@ function updateGameArea() {
       // Update the score
       score += 1;
       updateScore();
+
       // Add a new present to catch
       presentYPos = -75
       presentXPos = getRandomXPos(5);
       gameArea.context.drawImage(present,presentXPos,presentYPos)
-      // Increase the difficulty
-      if (gravity < 21) {
-        gravity += 1.0;
-      }
+
+      // Increase the gravity
+      updateGravity();
+
     }
   }
-
-  // Update the elf's position
-  gameArea.context.drawImage(elf,elfPosition,375); // Add the elf
 
 }
 
@@ -134,6 +132,17 @@ function getRandomXPos(max) {
   }
 
   return xPos;
+}
+
+function updateGravity() {
+  if (gravity <= maxGravity) {
+    if ((gravity + gravityIncreaseBy) > maxGravity) {
+      gravity = maxGravity;
+    }
+    else {
+      gravity += gravityIncreaseBy;
+    }
+  }
 }
 
 function updateScore() {
