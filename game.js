@@ -2,7 +2,8 @@
 var presentIsReady = false;
 var elfIsReady = false;
 var gameIsReady = false;
-var gravity = 10; // pixel per millisecond
+var gravity = 10; // pixel per 20 milliseconds
+var gravityIncreaseBy = 1.0; // pixel per 20 milliseconds
 var score = 0;
 
 var elfPosition = 0; // The starting location for the elf
@@ -26,6 +27,29 @@ present.onload = function() {
   readyGame();
 };
 
+// You don't want to start the game before the image assets have been loaded
+function readyGame() {
+  if (presentIsReady && elfIsReady) {
+    gameIsReady = true;
+    startGame();
+  }
+}
+
+// Setup the game area
+var gameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 300;
+        this.canvas.height = 450;
+        this.context = this.canvas.getContext("2d");
+        document.body.appendChild(this.canvas);
+        this.interval = setInterval(updateGameArea, 20);
+    },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
 // Setup the arrow controls for the game
 document.onkeydown = function(e) {
     switch (e.keyCode) {
@@ -45,31 +69,8 @@ document.onkeydown = function(e) {
     }
 };
 
-// You don't want to start the game before the image assets have been loaded
-function readyGame() {
-  if (presentIsReady && elfIsReady) {
-    gameIsReady = true;
-    startGame();
-  }
-}
-
 function startGame() {
     gameArea.start();
-}
-
-var gameArea = {
-    canvas : document.createElement("canvas"),
-    start : function() {
-        this.canvas.width = 300;
-        this.canvas.height = 450;
-        this.context = this.canvas.getContext("2d");
-        document.body.appendChild(this.canvas);
-        this.frameNo = 0;
-        this.interval = setInterval(updateGameArea, 20);
-    },
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
 }
 
 function updateGameArea() {
@@ -93,15 +94,14 @@ function updateGameArea() {
     else {
       // Update the score
       score += 1;
-      console.log(score);
       updateScore();
       // Add a new present to catch
       presentYPos = -75
       presentXPos = getRandomXPos(5);
       gameArea.context.drawImage(present,presentXPos,presentYPos)
       // Increase the difficulty
-      if (gravity < 20) {
-        gravity += 2;
+      if (gravity < 21) {
+        gravity += 1.0;
       }
     }
   }
