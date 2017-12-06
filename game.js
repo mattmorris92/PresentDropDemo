@@ -2,6 +2,7 @@
 var presentIsReady = false;
 var elfIsReady = false;
 var gameIsReady = false;
+
 var gravity = 10;
 var gravityIncreaseBy = 1.0;
 var maxGravity = 20;
@@ -14,7 +15,7 @@ var presentYPos = -75; // The starting ypos for the present
 
 // Load in the elf image
 var elf = new Image;
-elf.src = "assets/meow.png";
+elf.src = "assets/elf.png";
 elf.onload = function() {
   elfIsReady = true;
   readyGame();
@@ -22,7 +23,7 @@ elf.onload = function() {
 
 // Load in the present image
 var present = new Image;
-present.src = "assets/fish.png";
+present.src = "assets/present.png";
 present.onload = function() {
   presentIsReady = true;
   readyGame();
