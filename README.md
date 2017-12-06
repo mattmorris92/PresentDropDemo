@@ -38,6 +38,7 @@ HAkron HTML5 canvas game workshop.
 * Sound good? : )
 * So, lets go to your game.js file and snoop around!
 
+```
 // Load in the elf image
 var elf = new Image;
 elf.src = "assets/elf.png"; //PEEP THIS LINE, YO
@@ -45,11 +46,12 @@ elf.onload = function() {
   elfIsReady = true;
   readyGame();
 }
+```
 
 * See that line with the elf image? Heck it. Let's google some other images that fits the parameter of 75 px by 75 px!
 * So now we can save that image in our assets folder and change the line to the image name of our newfound buddy
 
-
+```
 // Load in the present image
 var present = new Image;
 present.src = "assets/present.png"; //Hey there friend, check out this sexy line
@@ -57,15 +59,18 @@ present.onload = function() {
   presentIsReady = true;
   readyGame();
 };
+```
 
 * And then we'd do something similar to the code above! I think you can figure it out : )
 * One more thing to get rid of that holiday spirit!! HECK THE SNOE
 * Lets move over to our game.html file!
 
+```
   canvas {
     border:1px solid #d3d3d3;
     background-image: url("assets/snowFall.gif"); <- this line here
   }
+ ```
  
  * Lets plop in a gif and see if we like it! 
  
